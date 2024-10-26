@@ -25,7 +25,6 @@ class EventReminder extends Command
             }
         }
 
-        // Get completed events (where end time has passed)
         $completedEvents = Event::where('start_datetime', '<=', $now)->where('status', '!=', 'completed')->get();
         foreach ($completedEvents as $event) {
             $event->status = 'completed'; 
