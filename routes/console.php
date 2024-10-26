@@ -1,4 +1,4 @@
 <?php
 
 use Illuminate\Support\Facades\Schedule;
-Schedule::command('events:remind')->dailyAt('22:30'); 
+Schedule::command('events:remind')->daily(); 
