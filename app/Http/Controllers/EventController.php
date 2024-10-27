@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
-use App\Jobs\SendEventReminders;
+use App\Jobs\SendEventEmail;
 use App\Imports\EventsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
-
 class EventController extends Controller
 {
     public function index(Request $request)
@@ -30,7 +29,7 @@ class EventController extends Controller
             'description' => 'required|string',
             'start_datetime' => 'required|date',
             'end_datetime' => 'required|date|after:start_datetime',
-            'attendees' => 'required|string', // Will process this later
+            'attendees' => 'required|string',
         ]);
         $attendees = json_decode($validatedData['attendees'], true);
            // Validate each email format
@@ -48,7 +47,9 @@ class EventController extends Controller
             'attendees' => $attendees, 
         ]);
 
-        SendEventReminders::dispatch($event);
+        foreach ($attendees as $email) {
+            SendEventEmail::dispatch($event);
+        }
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
@@ -61,9 +62,8 @@ class EventController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'csv_file' => 'required|file|mimes:xlsx',
+            'csv_file' => 'required|file|mimes:csv,txt',
         ]);
-
         Excel::import(new EventsImport, $request->file('csv_file'));
 
         return redirect()->route('events.index')->with('success', 'Events imported successfully.');

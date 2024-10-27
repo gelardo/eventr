@@ -4,7 +4,7 @@
 namespace App\Jobs;
 
 use App\Models\Event;
-use App\Mail\EventEmail;
+use App\Mail\EventReminderEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 
-class SendEventReminders implements ShouldQueue
+class SendEventReminder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class SendEventReminders implements ShouldQueue
     {
         foreach ($this->event->attendees as $attendee) {
             // dd($attendee);
-            Mail::to($attendee)->send(new EventEmail($this->event));
+            Mail::to($attendee)->send(new EventReminderEmail($this->event));
         }
     }
 }

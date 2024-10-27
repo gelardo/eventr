@@ -21,6 +21,24 @@
                 </form>
             </div>
         </div>
+        <!--- Show validation error --->
+        @if ($errors->any())
+            <div class="p-6 text-red-500">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            @if (session('success'))
+                <div class="p-6 text-green-500">
+                    {{ session('success') }}
+                </div>
+            @endif
+        @endif
+
+                
     </div>
     <!--- Create a responsive table for listing events ---->
     <div class="py-12">
