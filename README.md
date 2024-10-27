@@ -71,6 +71,7 @@ php artisan migrate
 
 7. Run 
 ```bash
+npm install
 npm run dev
 ```
 
@@ -98,7 +99,8 @@ php artisan serve
    - end_datetime
    - attendees (comma-separated emails and All emails must be enclosed within double quote)
 
-2. Use the Import Events section to upload your CSV file
+2. Use the Import Events section Event list page to upload your CSV file
+   - Here is demo file link : [sampleCsv](https://numansyed675.com/sample.csv)
 
 
 ## Development
