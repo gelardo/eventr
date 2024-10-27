@@ -28,7 +28,7 @@ A Laravel-based event reminder application with offline support and CSV import f
 1. Clone the repository
 ```bash
 git clone https://github.com/gelardo/eventr.git
-cd event-reminder-app
+cd eventr
 ```
 
 2. Install PHP dependencies
